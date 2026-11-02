@@ -1,0 +1,684 @@
+# AGENT RUSH – V2 PROJECT UPDATE & MIGRATION SPECIFICATION
+
+**Document type:** Existing Project Update / Migration Instructions  
+**Project:** AGENT RUSH  
+**Version:** 2.0  
+**Network:** BNB Smart Chain  
+**NFT Standard:** ERC-721  
+**Status:** Existing implementation completed according to previous specification.  
+**Purpose:** Update the existing implementation to the new official Genesis Season requirements.
+
+---
+
+# 1. IMPORTANT INSTRUCTIONS FOR THE AI DEVELOPMENT AGENT
+
+The AGENT RUSH project has already been developed using an earlier version of PROJECT_SPEC.md.
+
+This document introduces updated project decisions and replaces conflicting requirements from the previous specification.
+
+**DO NOT REBUILD THE PROJECT FROM SCRATCH.**
+
+Your first responsibility is to inspect the existing project and understand its current implementation.
+
+Before modifying anything:
+
+1. Inspect the complete project folder and file structure.
+2. Read the existing PROJECT_SPEC.md.
+3. Inspect all smart contracts.
+4. Inspect frontend wallet authentication and connection logic.
+5. Inspect NFT minting and supply management.
+6. Inspect metadata and NFT image handling.
+7. Inspect all existing tests.
+8. Identify every implementation that conflicts with this update.
+9. Create a backup or a separate Git branch before making changes.
+10. Prepare a migration report.
+
+Do not delete working functionality unless it conflicts with the updated requirements.
+
+Do not silently replace Binance Agentic Wallet authentication with MetaMask, WalletConnect, RainbowKit, or another generic wallet provider.
+
+Do not deploy anything to BNB Chain Mainnet.
+
+Do not request private keys, seed phrases, passwords, or authentication tokens.
+
+If an official Binance integration method cannot be verified, document the limitation and stop that integration task rather than implementing a fake or simulated authentication flow.
+
+The objective is to upgrade the existing project safely.
+
+---
+
+# 2. OFFICIAL PROJECT DEFINITION
+
+AGENT RUSH is a Web3 NFT collection based on 100 original character designs.
+
+The Genesis Season will have:
+
+- 100 unique character artwork designs.
+- 8,000 total mintable NFTs.
+- Multiple NFTs can share the same character artwork.
+- Every NFT has a unique ERC-721 Token ID.
+- Each character has a maximum edition supply of 80 NFTs.
+- Users access the mint system through Binance Agentic Wallet authentication.
+- Valid Binance `.ai` Agent ID ownership is required.
+
+The collection is not limited to 100 NFTs.
+
+The 100 designs represent the collection's character library, while 8,000 represents the total number of NFT editions that can be minted.
+
+## Official project slogan
+
+MINT YOUR AGENT. JOIN THE RUSH.
+
+## Visual identity
+
+- Cyberpunk.
+- Chibi and stylized 3D character aesthetics.
+- Anime-inspired collectible characters.
+- Meme culture.
+- Web3 and AI agent culture.
+- Purple, black, neon green and cyan.
+- Expressive characters and recognizable silhouettes.
+
+Do not use copyrighted characters or unauthorized third-party logos.
+
+---
+
+# 3. GENESIS SEASON – OFFICIAL TOKENOMICS
+
+These requirements replace the previous 100-NFT total supply assumption.
+
+| Parameter | Official value |
+|---|---:|
+| Season | Genesis / Season 1 |
+| Character designs | 100 |
+| Maximum NFT supply | 8,000 |
+| Editions per character | 80 |
+| NFT standard | ERC-721 |
+| Blockchain | BNB Smart Chain |
+| First mint | Free |
+| Additional mint price | 0.001 BNB |
+| Free mint allowance | 1 per verified Agent ID |
+| Paid mint allowance | 9 per wallet |
+| Maximum collection supply | 8,000 |
+
+The total supply is a hard limit.
+
+The contract must never mint more than 8,000 NFTs.
+
+The collection must not automatically mint 8,000 NFTs. NFTs are created only when users execute successful mint transactions.
+
+Unminted editions remain available until minted or until the season is officially closed.
+
+---
+
+# 4. CHARACTER EDITION SYSTEM
+
+The collection contains 100 original character designs.
+
+Each character has an edition capacity of 80 NFTs.
+
+Total capacity:
+
+100 characters × 80 editions = 8,000 NFTs.
+
+Different users may own NFTs featuring the same character.
+
+Example:
+
+| Token ID | Character ID | Edition |
+|---|---|---:|
+| 1 | 001 | 1 |
+| 2 | 001 | 2 |
+| 3 | 001 | 3 |
+| 4 | 002 | 1 |
+| 5 | 002 | 2 |
+
+Every NFT must have:
+
+- A unique Token ID.
+- A Character ID.
+- An edition number.
+- A unique owner.
+- Its own ERC-721 ownership record.
+
+Multiple tokens can reference the same artwork and character metadata.
+
+## Character metadata
+
+Every character must have:
+
+- Character ID.
+- Character name.
+- Character description.
+- Image URI.
+- Character attributes.
+- Rarity classification, if applicable.
+
+Every NFT metadata record must additionally identify:
+
+- Token ID.
+- Character ID.
+- Edition number.
+- Collection name.
+- Season name.
+
+Do not generate 8,000 separate artwork files.
+
+The project requires 100 original character artwork files, with NFT metadata referencing the appropriate character image.
+
+## Edition management
+
+The smart contract must enforce a maximum of 80 editions per character.
+
+The total number of minted NFTs across all characters must never exceed 8,000.
+
+The contract or its trusted minting mechanism must prevent:
+
+- More than 80 editions of a character.
+- Duplicate edition numbers for the same character.
+- Invalid Character IDs.
+- Minting after the global supply reaches 8,000.
+
+Do not rely only on frontend validation or database counters.
+
+---
+
+# 5. MINTING SYSTEM – UPDATED RULES
+
+The minting system uses two independent quota mechanisms.
+
+## 5.1 Free mint quota
+
+Every unique, verified Binance `.ai` Agent ID is entitled to one free NFT during Genesis Season.
+
+Rules:
+
+- One free mint per unique Agent ID.
+- The free mint can only be used once.
+- Transferring an Agent ID to another wallet must not reset its free mint allowance.
+- The contract must record the permanent Agent ID identifier associated with the free mint.
+- The free mint does not require BNB payment.
+- Normal network gas fees still apply.
+
+## 5.2 Paid mint quota
+
+Every wallet address can mint up to nine additional paid NFTs.
+
+Rules:
+
+- Maximum nine paid NFTs per wallet address.
+- Price per paid NFT: 0.001 BNB.
+- Payment must be checked by the smart contract.
+- Incorrect payment must revert the transaction.
+- Overpayment handling must be explicitly defined.
+- Paid mint counters must be maintained on-chain.
+- A wallet must not bypass its paid quota through repeated frontend sessions.
+
+The free mint quota and paid mint quota must be tracked independently.
+
+Important distinction:
+
+The free allowance is Agent ID-based.
+
+The paid allowance is wallet-address-based.
+
+These are separate rules and must not be merged into a single counter.
+
+A person using multiple wallets may be able to access multiple wallet-based paid quotas. Do not claim that the system enforces a strict real-world person-level limit.
+
+## 5.3 Global supply
+
+All free and paid mints consume the same global 8,000 NFT supply.
+
+The system must not reserve an additional supply outside the 8,000 limit unless explicitly approved.
+
+---
+
+# 6. BINANCE AGENTIC WALLET – QR AUTHENTICATION
+
+This is a mandatory project requirement.
+
+AGENT RUSH must use Binance Agentic Wallet authentication.
+
+Users must connect through the official Binance QR-code authentication and pairing flow.
+
+Do not use generic browser wallet connections as the primary authentication system.
+
+Do not assume that MetaMask, RainbowKit, WalletConnect or a normal injected EVM provider satisfies this requirement.
+
+## Required user experience
+
+1. User opens AGENT RUSH.
+2. User selects Connect Binance Agentic Wallet.
+3. Website displays an official Binance-supported QR authentication flow.
+4. User scans the QR code using the supported Binance application.
+5. User approves the pairing.
+6. The authentication process is verified.
+7. The authenticated Agentic Wallet address is retrieved through the supported official interface.
+8. The system verifies the associated Binance `.ai` Agent ID.
+9. If both checks succeed, the user can access the mint interface.
+
+## Two independent verification layers
+
+### Layer 1 – Wallet authentication
+
+Verify that the user successfully authenticated through the official Binance Agentic Wallet process.
+
+The authenticated wallet address must come from a trusted, verified authentication result.
+
+Do not trust a wallet address supplied by the frontend.
+
+### Layer 2 – Agent ID verification
+
+Verify that the authenticated wallet is associated with a valid Binance `.ai` Agent ID.
+
+Use the verified registry address, official ABI and supported methods.
+
+Do not invent registry methods or assume an unverified ABI.
+
+Do not assume that a mutable Agent ID display handle is a permanent identity.
+
+Identify a stable Agent ID identifier that can be used for quota tracking.
+
+## Critical integration restriction
+
+The official Agentic Wallet CLI authentication flow and a website QR authentication flow must not be treated as automatically interchangeable.
+
+Before implementation, verify the currently supported Binance Agentic Wallet integration method for third-party websites.
+
+The implementation must establish a secure connection between:
+
+- Binance QR authentication.
+- Authenticated wallet address.
+- Agent ID verification.
+- Transaction-signing wallet.
+
+If the official interface does not support the requested browser flow, report the limitation and propose a verified alternative.
+
+Never implement a simulated QR connection.
+
+---
+
+# 7. NFT DISTRIBUTION LOGIC
+
+The Genesis Season must support 100 characters with 80 editions each.
+
+The AI development agent must inspect the existing mint logic and recommend the simplest secure distribution mechanism.
+
+Possible approaches:
+
+### Option A – User selects a character
+
+Users can select from available character designs.
+
+Each character can be minted up to 80 times.
+
+Advantages:
+- Users can choose their preferred character.
+- Easy to understand.
+- Clear remaining edition counts.
+
+Disadvantage:
+- Popular characters may sell out earlier.
+
+### Option B – Automatic character assignment
+
+The contract assigns the next available character.
+
+Advantages:
+- Simpler collection distribution.
+- Easier to control edition allocation.
+
+Disadvantage:
+- Users cannot directly choose their preferred character.
+
+Do not implement an insecure pseudo-random mechanism and describe it as verifiably random.
+
+For the initial MVP, prefer a transparent distribution method that can be tested and audited.
+
+The final choice must be documented before implementation.
+
+---
+
+# 8. NFT METADATA AND IPFS
+
+The collection must use IPFS-compatible NFT metadata.
+
+Expected structure:
+
+AGENT-RUSH/
+  assets/
+    characters/
+      character-001.png
+      character-002.png
+      ...
+      character-100.png
+
+  metadata/
+    1.json
+    2.json
+    3.json
+    ...
+    8000.json
+
+Every NFT metadata record must point to its assigned character image.
+
+Example:
+
+{
+  "name": "AGENT RUSH #0001",
+  "description": "A Genesis Season AGENT RUSH collectible.",
+  "image": "ipfs://CHARACTER_IMAGE_CID",
+  "attributes": [
+    {
+      "trait_type": "Season",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "Character ID",
+      "value": "001"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 1
+    }
+  ]
+}
+
+The example is illustrative. Generate valid metadata with real uploaded IPFS CIDs.
+
+Do not use placeholder CIDs in production.
+
+Metadata must be validated before deployment.
+
+The project must support a consistent token URI strategy.
+
+If metadata freezing or immutability is supported, document exactly when and how it is activated.
+
+---
+
+# 9. SMART CONTRACT REQUIREMENTS
+
+Inspect the existing smart contracts and modify them where necessary.
+
+The updated implementation must support:
+
+- ERC-721.
+- Maximum supply of 8,000.
+- 100 registered characters.
+- Maximum 80 editions per character.
+- One free mint per verified Agent ID.
+- Nine paid mints per wallet.
+- Paid mint price of 0.001 BNB.
+- Agent ID registry verification.
+- Separate free and paid quota accounting.
+- Correct token URI handling.
+- Contract pause functionality.
+- Secure owner/admin permissions.
+- Safe revenue handling.
+- Events for minting and character edition tracking.
+
+The contract must not rely on the frontend for enforcement of mint quotas.
+
+## Existing revenue model
+
+Preserve the previously approved revenue split unless the owner explicitly changes it.
+
+For paid mint revenue:
+
+| Recipient | Percentage |
+|---|---:|
+| Treasury | 35% |
+| Rewards | 25% |
+| Liquidity / Reserve | 15% |
+| Development | 15% |
+| Community | 5% |
+| Security / Operations | 5% |
+
+Use secure payment handling.
+
+Prefer a pull-payment architecture where appropriate.
+
+Do not send funds to unverified addresses.
+
+The contract owner must not be able to arbitrarily change user quotas or mint prices without clearly documented permissions and events.
+
+---
+
+# 10. WEBSITE REQUIREMENTS
+
+Keep the existing visual identity and working components wherever possible.
+
+The website should support the updated Genesis Season.
+
+## Main pages
+
+### Home
+- AGENT RUSH branding.
+- Genesis Season introduction.
+- 100 character collection concept.
+- Total supply: 8,000.
+- Mint call to action.
+
+### Collection
+- Display all 100 characters.
+- Show character artwork.
+- Show character ID and name.
+- Show minted editions and remaining editions.
+- Display rarity information if implemented.
+
+### Mint
+- Binance Agentic Wallet QR authentication.
+- Agent ID verification status.
+- Free mint availability.
+- Paid mint count.
+- Paid mint price.
+- Remaining global supply.
+- Available character editions.
+- Transaction confirmation.
+
+### My Agents
+- Display NFTs owned by the connected wallet.
+- Show Token IDs.
+- Show character artwork.
+- Show edition numbers.
+- Provide links to the relevant block explorer or marketplace where available.
+
+### Future features
+
+The following features are not mandatory for the initial migration:
+
+- Leaderboard.
+- Missions.
+- Rewards.
+- Marketplace.
+- Seasonal events.
+- Advanced rarity rankings.
+
+Do not delay the core mint system to build these features.
+
+---
+
+# 11. MIGRATION AND COMPATIBILITY REQUIREMENTS
+
+Before changing the existing project, classify the current implementation.
+
+Create a report with:
+
+| Component | Existing state | Required change | Status |
+|---|---|---|---|
+| Smart contract | Inspect | 8,000 supply and edition logic | Pending |
+| Character metadata | Inspect | 100 characters / 8,000 tokens | Pending |
+| Mint limits | Inspect | New independent quota rules | Pending |
+| Wallet authentication | Inspect | Binance QR integration | Pending |
+| Agent ID registry | Inspect | Verified stable identifier | Pending |
+| Frontend | Inspect | Updated Genesis UI | Pending |
+| Tests | Inspect | New test coverage | Pending |
+
+Do not assume existing code is correct simply because the previous version compiled or deployed to a test environment.
+
+If an existing contract has already been deployed, do not claim that its immutable code has been upgraded.
+
+Determine whether a new contract deployment is necessary.
+
+Do not transfer funds, NFTs, ownership or administrative permissions without explicit approval.
+
+---
+
+# 12. REQUIRED TESTS
+
+All updated functionality must be tested.
+
+## Supply tests
+
+- Total supply cannot exceed 8,000.
+- Only 100 valid Character IDs exist.
+- No character can exceed 80 editions.
+- Invalid Character IDs are rejected.
+- Edition numbers are unique within each character.
+
+## Free mint tests
+
+- A verified Agent ID can mint one free NFT.
+- The same Agent ID cannot mint another free NFT.
+- An unverified Agent ID cannot mint.
+- Agent ID transfer must not reset the used free allowance.
+- A wallet with multiple Agent IDs must follow the documented Agent ID-based free allowance rule.
+
+## Paid mint tests
+
+- Paid mint costs exactly 0.001 BNB.
+- A wallet can mint up to nine paid NFTs.
+- A wallet cannot mint a tenth paid NFT.
+- Insufficient payment is rejected.
+- Excess payment follows the documented policy.
+- Paid quota remains enforced across repeated sessions.
+
+## Wallet and authentication tests
+
+- Invalid QR authentication is rejected.
+- Expired authentication sessions are rejected.
+- Unverified wallet addresses are rejected.
+- A wallet without a valid Agent ID cannot mint.
+- The transaction signer must match the authenticated wallet.
+- Frontend manipulation must not bypass contract restrictions.
+
+## Security tests
+
+- Unauthorized users cannot change contract configuration.
+- Paused contracts reject mint operations.
+- Revenue distribution is correct.
+- Reentrancy and payment edge cases are tested.
+- Token URI handling is correct.
+- No private keys or secrets are exposed in frontend code.
+
+---
+
+# 13. DEVELOPMENT EXECUTION PLAN
+
+Work in the following order.
+
+### Phase 1 – Existing project audit
+
+Inspect and report the existing architecture.
+
+Do not modify files yet.
+
+### Phase 2 – Migration plan
+
+List every file that needs modification.
+
+Explain why each modification is necessary.
+
+Identify any new files required.
+
+### Phase 3 – Smart contract update
+
+Implement the new supply, character edition and quota rules.
+
+Add tests before considering the contract complete.
+
+### Phase 4 – Binance Agentic Wallet integration
+
+Verify official documentation and supported authentication methods.
+
+Implement the QR flow only if supported.
+
+Keep the authenticated wallet and Agent ID verification separate.
+
+### Phase 5 – Metadata and collection integration
+
+Support 100 character images and 8,000 unique token metadata records.
+
+### Phase 6 – Frontend update
+
+Modify existing pages to reflect Genesis Season rules.
+
+### Phase 7 – Full test and validation
+
+Run all unit tests, integration tests and frontend checks.
+
+Report all failures honestly.
+
+### Phase 8 – Final report
+
+Provide:
+
+- Files modified.
+- Files added.
+- Files preserved.
+- Smart contract changes.
+- Authentication integration status.
+- Test results.
+- Known limitations.
+- Required manual steps.
+- Testnet deployment instructions.
+
+Do not deploy to Mainnet.
+
+---
+
+# 14. DEFINITION OF DONE
+
+The migration is complete only when:
+
+1. The existing project has been audited.
+2. The 8,000 NFT global supply is enforced.
+3. Exactly 100 valid character designs are supported.
+4. Each character has an 80-edition limit.
+5. Every NFT has a unique ERC-721 Token ID.
+6. One free mint per verified Agent ID works.
+7. Nine paid mints per wallet work.
+8. Paid mint price is 0.001 BNB.
+9. Agent ID ownership is verified using a confirmed registry interface.
+10. Binance Agentic Wallet authentication is implemented through a verified supported method, or its integration limitation is clearly documented.
+11. The frontend displays correct mint allowances and remaining supply.
+12. All tests pass.
+13. No Mainnet deployment occurs without explicit owner approval.
+
+---
+
+# 15. FINAL INSTRUCTION TO THE AI AGENT
+
+This document supersedes conflicting requirements in the previous PROJECT_SPEC.md.
+
+The project already exists. Your task is to migrate and improve it, not to blindly rebuild it.
+
+Start with a complete audit.
+
+Do not start modifying the code until you have presented the migration report and identified the necessary changes.
+
+Preserve working functionality.
+
+Prioritize security, correct quota accounting, Binance Agentic Wallet compatibility and reliable NFT minting.
+
+The final product must implement:
+
+**100 CHARACTER DESIGNS.  
+8,000 NFT EDITIONS.  
+1 FREE MINT PER AGENT ID.  
+9 PAID MINTS PER WALLET.  
+0.001 BNB PER PAID MINT.  
+BINANCE AGENTIC WALLET QR AUTHENTICATION.**
+
+AGENT RUSH – MINT YOUR AGENT. JOIN THE RUSH.

@@ -1,0 +1,1073 @@
+# AGENT RUSH
+## AI Agent Development Brief & Technical Project Specification
+
+**Project:** AGENT RUSH  
+**Category:** Web3 NFT Mint-to-Play Ecosystem  
+**Blockchain:** BNB Smart Chain  
+**NFT Standard:** ERC-721  
+**Frontend:** Next.js + TypeScript  
+**Smart Contracts:** Solidity  
+**AI Integration:** Binance Agentic Wallet  
+**Project Stage:** Concept / MVP Development  
+**Visual Identity:** Meme Agents  
+**Participation Model:** Strict Binance Agent ID Verification
+
+---
+
+# 1. PROJECT OVERVIEW
+
+AGENT RUSH is a Web3 NFT minting and gamification platform designed specifically for users who own a Binance Agent ID.
+
+The main idea is to create an ecosystem where Binance Agentic Wallet users can mint unique meme-themed NFTs, collect different characters, participate in missions, compete on seasonal leaderboards, and earn rewards through participation.
+
+AGENT RUSH is not intended to be a traditional NFT marketplace or an automated trading bot.
+
+It is a **Mint-to-Play Web3 ecosystem** combining:
+
+- NFT minting.
+- Binance Agent ID verification.
+- AI Agent interaction.
+- Meme character collection.
+- NFT rarity and evolution.
+- Seasonal missions.
+- Leaderboards.
+- Community rewards.
+- NFT marketplace functionality in a later development phase.
+
+The experience should be simple enough for users without blockchain development knowledge.
+
+The platform should also support AI agents that can interact with its smart contracts through Binance Agentic Wallet.
+
+## Main slogan
+
+**MINT YOUR AGENT. JOIN THE RUSH.**
+
+## Main objective
+
+Build a working BNB Chain application where verified Binance Agent ID holders can mint NFTs, manage their collections, participate in activities, and interact with the ecosystem using their AI agents.
+
+---
+
+# 2. PROJECT IDENTITY AND DESIGN
+
+## NFT Theme: Meme Agents
+
+The NFT collection should use original, humorous, internet-culture-inspired characters.
+
+Possible character concepts:
+
+- Sleepy Trader
+- Alien Degen
+- Rug Survivor
+- Crypto Addict
+- Gas Fee Monster
+- FOMO Bot
+- Diamond Hands Robot
+- Liquidation King
+- Bullish Alien
+- Exit Liquidity Agent
+
+The visual style should combine:
+
+- Cyberpunk aesthetics.
+- Internet meme culture.
+- Cartoon and 3D characters.
+- Purple, black, and neon green colors.
+- Funny facial expressions.
+- Unique accessories and backgrounds.
+
+Each NFT should have individual traits and metadata.
+
+Do not use copyrighted characters, official Binance logos, or third-party brand identities without permission.
+
+## Website Design
+
+The website should feel like a modern Web3 gaming platform.
+
+Preferred design:
+
+- Dark background.
+- Purple and neon green highlights.
+- Modern typography.
+- Animated character cards.
+- Responsive desktop and mobile layouts.
+- Clear wallet connection.
+- Simple mint interface.
+- NFT collection gallery.
+- User dashboard.
+- Leaderboard and reward sections.
+
+All website interface text must be in English.
+
+Development instructions and explanations for the project owner should be in Turkish.
+
+---
+
+# 3. CORE TOKENOMICS AND MINTING MODEL
+
+These are the initial product parameters. They must be configurable or safely adjustable before mainnet deployment.
+
+| Parameter | Initial value |
+|---|---|
+| Blockchain | BNB Smart Chain |
+| NFT Standard | ERC-721 |
+| Genesis Supply | 10,000 NFTs |
+| First Mint | Free |
+| Paid Mint | 0.001 BNB |
+| Maximum NFTs per Agent ID | 10 per season |
+| Marketplace Fee | 2.5% proposed |
+| Royalty | 2.5% proposed |
+| Platform Token | None in MVP |
+
+## Strict Participation Model
+
+Only users with a valid Binance Agent ID can participate in minting.
+
+The basic flow:
+
+1. User connects a compatible wallet.
+2. The platform checks whether the wallet owns a valid Binance Agent ID.
+3. If the user does not have an Agent ID, minting is disabled.
+4. If the user has a valid Agent ID, the platform checks their mint history.
+5. The first mint in a season is free.
+6. Subsequent mints cost 0.001 BNB each.
+7. The maximum is 10 NFTs per Agent ID per season.
+8. All mint operations are recorded on-chain.
+
+Important implementation requirement:
+
+Mint limits must be associated with a stable, unique Agent ID identifier, not only the wallet address.
+
+The development agent must investigate whether the official Binance Agent ID registry exposes a stable identifier or token ID suitable for this purpose.
+
+Do not assume that a display name or `.ai` handle is a permanent unique identifier.
+
+If an Agent ID is transferred to another wallet, the mint history must not reset.
+
+The free mint and seasonal limit must also be resistant to wallet changes and identity reuse.
+
+## Genesis Supply
+
+The initial collection has a maximum supply of 10,000 NFTs.
+
+A new season must not automatically increase the Genesis supply.
+
+If future seasons require additional NFTs, they should use separately defined collection contracts or explicitly approved supply extensions.
+
+---
+
+# 4. REVENUE MODEL
+
+The project should have a transparent revenue distribution system.
+
+Every paid mint generates 0.001 BNB.
+
+The proposed distribution is:
+
+| Allocation | Percentage |
+|---|---:|
+| Treasury | 35% |
+| Season Reward Fund | 25% |
+| Liquidity / Reserve | 15% |
+| Development | 15% |
+| Community | 5% |
+| Security and Operations | 5% |
+| **Total** | **100%** |
+
+The smart contract should account for these allocations separately.
+
+The project must not describe all collected funds as profit.
+
+Reward funds and liquidity reserves are restricted allocations, not automatically available operating revenue.
+
+## Additional potential revenue
+
+These features are not part of the initial MVP:
+
+- Secondary NFT marketplace fees.
+- Partner NFT collections.
+- Sponsored missions.
+- Premium dashboard features.
+- API access.
+- Paid collection launch services.
+
+No native platform token should be introduced during the MVP stage.
+
+## Reward Model
+
+The initial reward model should use transparent, pre-funded seasonal reward pools.
+
+Possible activities:
+
+- Complete missions.
+- Collect different NFT character types.
+- Participate in community events.
+- Complete verified on-chain actions.
+- Earn achievement badges.
+- Compete on leaderboards.
+
+Rewards should not be advertised as guaranteed investment returns.
+
+Avoid last-minter-wins jackpots, random paid-entry prize pools, or similar gambling-like mechanisms in the MVP.
+
+Before any public launch, obtain appropriate legal review for the jurisdictions where the platform will operate.
+
+---
+
+# 5. TECHNICAL ARCHITECTURE
+
+The platform should be modular.
+
+The frontend, smart contracts, Agentic Wallet integration, and off-chain services should be developed as separate components.
+
+## Recommended Architecture
+
+```text
+                    AGENT RUSH
+                         |
+          +--------------+--------------+
+          |              |              |
+       FRONTEND       SMART          AI AGENT
+       Next.js        CONTRACTS      INTEGRATION
+          |              |              |
+          |           BNB Chain     Agentic Wallet
+          |              |              |
+          +--------------+--------------+
+                         |
+                 BACKEND SERVICES
+                         |
+             +-----------+-----------+
+             |           |           |
+          Supabase      IPFS      Blockchain
+          Database    Metadata     Indexing
+```
+
+## Recommended Technology Stack
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- wagmi
+- viem
+- RainbowKit or another compatible wallet connection library
+
+Purpose:
+
+- Website interface.
+- Wallet connection.
+- Agent ID status.
+- Minting.
+- NFT gallery.
+- User dashboard.
+- Leaderboard.
+
+### Smart Contracts
+
+- Solidity.
+- Hardhat.
+- OpenZeppelin Contracts.
+- Ethers.js or viem for deployment scripts and testing.
+
+Purpose:
+
+- NFT creation.
+- Agent ID verification.
+- Mint restrictions.
+- Revenue distribution.
+- Season management.
+- Reward accounting.
+
+### Database and Backend
+
+- Supabase.
+- PostgreSQL.
+- Next.js API routes or server-side functions.
+
+Purpose:
+
+- User profiles.
+- Mission progress.
+- Leaderboard data.
+- Cached NFT information.
+- Activity history.
+
+The database must not be treated as the authority for on-chain ownership, mint limits, or payments.
+
+Those must be verified through smart contracts.
+
+### NFT Storage
+
+- IPFS.
+- Pinata or another IPFS pinning provider.
+
+Purpose:
+
+- NFT artwork.
+- Metadata JSON.
+- Collection assets.
+
+### Blockchain Infrastructure
+
+- BNB Chain Mainnet.
+- BNB Chain Testnet.
+- BNB Chain RPC.
+- BscScan.
+- Blockchain event indexing.
+
+Use free or low-cost RPC options during development.
+
+Never hardcode private API keys into public frontend code.
+
+---
+
+# 6. SMART CONTRACT ARCHITECTURE
+
+The first release should use a small number of contracts.
+
+Do not build unnecessary complexity before the basic minting system works.
+
+## Contract 1: AgentRush.sol
+
+Main NFT contract.
+
+Responsibilities:
+
+- ERC-721 NFT implementation.
+- Agent ID eligibility checks.
+- Free mint.
+- Paid mint.
+- Maximum supply.
+- Per-Agent-ID seasonal mint limits.
+- Token metadata.
+- Mint events.
+- Pause functionality for minting.
+- Optional ERC-2981 royalty information.
+
+Expected functions:
+
+```solidity
+mint(uint256 quantity)
+
+quoteMint(address wallet, uint256 quantity)
+
+remainingMintAllowance(address wallet)
+
+agentIdEligible(address wallet)
+
+tokenURI(uint256 tokenId)
+
+setBaseURI(string calldata newURI)
+
+pauseMint()
+
+unpauseMint()
+```
+
+The exact ABI and function names may change during development.
+
+## Contract 2: RevenueRouter.sol
+
+Responsible for distributing paid mint revenue.
+
+Responsibilities:
+
+- Receive payments from the NFT contract.
+- Allocate funds according to predefined percentages.
+- Maintain separate balances.
+- Allow authorized recipients to claim their allocations.
+- Emit accounting events.
+
+The router should not allow the owner to arbitrarily redirect existing allocations.
+
+## Contract 3: SeasonManager.sol
+
+This contract can be introduced after the first successful minting MVP.
+
+Responsibilities:
+
+- Season registration.
+- Season start and end.
+- Seasonal reward accounting.
+- Mission configuration.
+- Achievement tracking.
+- Reward claims.
+
+Mission completion that depends on off-chain activity must use a carefully designed verification mechanism.
+
+Do not trust frontend-only mission completion.
+
+## Contract 4: RewardVault.sol
+
+Responsible for holding pre-funded rewards.
+
+Responsibilities:
+
+- Reward deposits.
+- Eligibility verification.
+- Claim limits.
+- Reward history.
+- Season-specific accounting.
+
+Rewards must be funded before they are advertised as available.
+
+## Contract 5: Marketplace.sol
+
+Optional future component.
+
+Responsibilities:
+
+- NFT listings.
+- Purchases.
+- Marketplace fees.
+- Royalty handling where supported.
+
+The MVP does not need a custom marketplace.
+
+---
+
+# 7. BINANCE AGENTIC WALLET INTEGRATION
+
+This is one of the most important parts of AGENT RUSH.
+
+The platform should support users who want their AI agents to interact with AGENT RUSH.
+
+The integration must be based on the official Binance Agentic Wallet developer documentation and supported CLI/API interfaces.
+
+Do not assume that Binance Agentic Wallet automatically behaves like a standard browser wallet provider.
+
+## Two interaction methods
+
+### Method A: Browser Wallet
+
+The user connects a compatible EVM wallet through the website.
+
+The frontend:
+
+1. Connects the wallet.
+2. Checks the network.
+3. Reads the Agent ID registry.
+4. Checks the user's mint allowance.
+5. Calculates the required payment.
+6. Requests a wallet signature.
+7. Sends the mint transaction.
+8. Displays the transaction result.
+
+### Method B: Binance Agentic Wallet
+
+The user instructs an AI agent to mint an NFT.
+
+Example user instruction:
+
+```text
+Connect to AGENT RUSH.
+
+Check my Binance Agent ID.
+
+Check whether I have a free mint available.
+
+If a free mint is available, mint one NFT.
+
+Otherwise, calculate the paid mint price.
+
+Show me the transaction details and wait for my approval.
+
+Do not spend more than the amount I explicitly approve.
+```
+
+The AI agent should:
+
+1. Read the current wallet status.
+2. Read the Agent ID.
+3. Verify eligibility.
+4. Read the contract state.
+5. Calculate the mint price.
+6. Prepare the transaction.
+7. Preview the transaction if supported.
+8. Ask for user confirmation.
+9. Execute the transaction using the official supported wallet interface.
+10. Verify the transaction receipt.
+11. Report the minted NFT ID.
+
+## Agentic Wallet Security
+
+- Never request or expose the user's private key.
+- Never place private keys in frontend code.
+- Never transmit wallet credentials to the AGENT RUSH backend.
+- Never execute paid transactions without explicit authorization.
+- Never assume an AI agent's response proves that a transaction succeeded.
+- Verify successful transactions using the blockchain.
+- Use transaction previews where supported.
+- Respect wallet spending limits and authorization policies.
+
+## Agent Skill File
+
+Create a dedicated file:
+
+`agent-skill/AGENT_RUSH_SKILL.md`
+
+This file should explain to an AI agent:
+
+- How to identify the AGENT RUSH contract.
+- How to read the BNB Chain network.
+- How to verify Agent ID ownership.
+- How to calculate mint costs.
+- How to check mint allowance.
+- How to prepare a mint transaction.
+- How to obtain explicit user confirmation.
+- How to verify transaction results.
+
+The skill must use actual supported Binance Agentic Wallet commands or APIs.
+
+Do not invent CLI commands or pretend unsupported integrations exist.
+
+---
+
+# 8. FRONTEND PAGES
+
+The MVP should include the following pages.
+
+## Home Page
+
+- AGENT RUSH branding.
+- Project introduction.
+- Genesis supply.
+- Current minted NFT count.
+- Mint price.
+- Wallet connection.
+- Agent ID eligibility status.
+- Main mint button.
+
+## Mint Page
+
+- Connected wallet.
+- Agent ID verification.
+- Free mint availability.
+- Paid mint price.
+- Quantity selection.
+- Maximum mint allowance.
+- Transaction preview.
+- Transaction status.
+
+## Collection Page
+
+- NFT gallery.
+- NFT images.
+- Character names.
+- Rarity.
+- Trait information.
+- Token IDs.
+
+## My Agents Page
+
+- User's NFTs.
+- NFT details.
+- Collection progress.
+- Season participation.
+- Achievements.
+
+## Leaderboard Page
+
+- Top participating Agent IDs.
+- Missions completed.
+- NFT collection achievements.
+- Seasonal rankings.
+
+Do not create rankings that reward meaningless spam transactions.
+
+## Rewards Page
+
+- Current season.
+- Reward pool.
+- Reward allocation.
+- Claimable rewards.
+- Historical distributions.
+
+All on-chain balances must be obtained from blockchain data.
+
+---
+
+# 9. NFT METADATA AND COLLECTION GENERATION
+
+NFT metadata should follow the standard ERC-721 JSON metadata format.
+
+Example:
+
+```json
+{
+  "name": "Agent Rush #1",
+  "description": "A Genesis Meme Agent from AGENT RUSH.",
+  "image": "ipfs://IMAGE_CID/1.png",
+  "attributes": [
+    {
+      "trait_type": "Character",
+      "value": "Alien Degen"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Purple Galaxy"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Diamond Glasses"
+    }
+  ]
+}
+```
+
+The collection generator should support:
+
+- Character layers.
+- Background layers.
+- Accessories.
+- Eyes and expressions.
+- Special effects.
+- Rarity configuration.
+- Duplicate trait validation.
+- Metadata generation.
+- IPFS upload.
+
+The artwork should be generated from original assets.
+
+The rarity distribution must be determined before minting.
+
+NFT traits should not be presented as guarantees of monetary value.
+
+---
+
+# 10. DEVELOPMENT ROADMAP
+
+Development should be divided into small, verifiable stages.
+
+## Phase 1 – Environment Setup
+
+Install and verify:
+
+- Windows.
+- VS Code.
+- Node.js.
+- npm.
+- Git.
+- Hardhat.
+- Solidity compiler.
+- Binance Agentic Wallet CLI.
+
+Create the project structure.
+
+Expected result:
+
+A working development environment.
+
+## Phase 2 – Smart Contract MVP
+
+Create:
+
+- AgentRush.sol.
+- RevenueRouter.sol.
+- MockAgentIdRegistry.sol.
+
+Implement:
+
+- Free mint.
+- Paid mint.
+- Agent ID checks.
+- Maximum supply.
+- Per-Agent-ID limits.
+- Revenue allocation.
+
+Write automated tests.
+
+Expected result:
+
+Contracts compile and pass local tests.
+
+## Phase 3 – Testnet Deployment
+
+Deploy contracts to BNB Chain Testnet.
+
+Use a mock registry initially.
+
+Test:
+
+- Eligible wallet.
+- Ineligible wallet.
+- Free mint.
+- Paid mint.
+- Insufficient payment.
+- Maximum mint limit.
+- Maximum supply.
+- Revenue allocation.
+- Paused minting.
+
+Expected result:
+
+A publicly verifiable testnet NFT collection.
+
+## Phase 4 – Frontend MVP
+
+Build the Next.js application.
+
+Connect the website to the deployed testnet contracts.
+
+Implement:
+
+- Wallet connection.
+- Agent ID verification.
+- Mint page.
+- NFT gallery.
+- User dashboard.
+
+Expected result:
+
+Users can interact with AGENT RUSH through a browser wallet.
+
+## Phase 5 – Agentic Wallet Integration
+
+Study and implement the official Binance Agentic Wallet integration.
+
+Create the Agent Rush skill file.
+
+Test:
+
+- Wallet status.
+- Agent ID detection.
+- Contract reads.
+- Transaction preparation.
+- Transaction preview.
+- User approval.
+- Transaction execution.
+- Transaction receipt verification.
+
+Expected result:
+
+An AI agent can safely perform an authorized mint operation.
+
+## Phase 6 – Game Features
+
+Add:
+
+- NFT rarity.
+- Seasonal missions.
+- Leaderboard.
+- Achievement badges.
+- Reward vault.
+- NFT evolution.
+
+Expected result:
+
+The application becomes a real Mint-to-Play ecosystem.
+
+## Phase 7 – Security and Mainnet Preparation
+
+Before mainnet:
+
+- Review smart contracts.
+- Run automated security tests.
+- Check reentrancy protection.
+- Check access control.
+- Test Agent ID edge cases.
+- Review metadata permanence.
+- Review revenue accounting.
+- Review deployment permissions.
+- Obtain independent security review.
+- Obtain legal review.
+
+Mainnet deployment must not happen automatically.
+
+It requires explicit approval from the project owner.
+
+---
+
+# 11. REQUIRED SECURITY RULES
+
+The AI development agent must follow these rules.
+
+1. Never deploy untested smart contracts to mainnet.
+2. Never request the owner's seed phrase or private key.
+3. Never put private keys in source code.
+4. Never commit `.env` files to GitHub.
+5. Use environment variables for RPC and API credentials.
+6. Use OpenZeppelin libraries instead of implementing standard token functionality from scratch.
+7. Test all payment and mint restrictions.
+8. Prevent Agent ID transfer or identity changes from resetting mint limits.
+9. Do not trust frontend eligibility checks alone.
+10. Enforce all mint restrictions on-chain.
+11. Use a multisig wallet for important administrative operations in production.
+12. Keep reward funds separate from operating funds.
+13. Make revenue allocations publicly verifiable.
+14. Keep existing NFT transfer functionality available even if new minting is paused.
+15. Never silently change contract addresses or network settings.
+16. Ask for approval before any transaction involving real funds.
+17. Do not fabricate transaction success.
+18. Do not use fake blockchain data in the production interface.
+19. Clearly distinguish testnet and mainnet.
+20. Do not implement unverified Binance Agent ID registry interfaces.
+
+---
+
+# 12. INITIAL PROJECT FOLDER STRUCTURE
+
+Create the following structure:
+
+```text
+AGENT-RUSH/
+│
+├── contracts/
+│   ├── contracts/
+│   │   ├── AgentRush.sol
+│   │   ├── RevenueRouter.sol
+│   │   ├── SeasonManager.sol
+│   │   ├── RewardVault.sol
+│   │   └── MockAgentIdRegistry.sol
+│   │
+│   ├── scripts/
+│   │   └── deploy.js
+│   │
+│   ├── test/
+│   │   ├── AgentRush.test.js
+│   │   └── RevenueRouter.test.js
+│   │
+│   ├── hardhat.config.js
+│   └── package.json
+│
+├── frontend/
+│   ├── app/
+│   │   ├── page.tsx
+│   │   ├── layout.tsx
+│   │   ├── mint/
+│   │   ├── collection/
+│   │   ├── dashboard/
+│   │   ├── leaderboard/
+│   │   └── rewards/
+│   │
+│   ├── components/
+│   ├── hooks/
+│   ├── lib/
+│   └── public/
+│
+├── backend/
+│   ├── api/
+│   ├── services/
+│   └── database/
+│
+├── assets/
+│   ├── characters/
+│   ├── backgrounds/
+│   ├── accessories/
+│   └── metadata/
+│
+├── agent-skill/
+│   └── AGENT_RUSH_SKILL.md
+│
+├── docs/
+│   ├── PROJECT_SPEC.md
+│   ├── CONTRACT_ARCHITECTURE.md
+│   ├── SECURITY.md
+│   └── DEPLOYMENT.md
+│
+└── README.md
+```
+
+The AI agent may adjust this structure if there is a clear technical reason, but it must explain the change before making major architectural decisions.
+
+---
+
+# 13. ACCEPTANCE CRITERIA
+
+The MVP is not complete simply because the website looks good.
+
+It must satisfy these requirements:
+
+### Smart Contracts
+
+- [ ] Contracts compile successfully.
+- [ ] Valid Agent IDs can mint.
+- [ ] Invalid Agent IDs cannot mint.
+- [ ] First mint is free per Agent ID per season.
+- [ ] Subsequent mints cost the configured amount.
+- [ ] Maximum 10 NFTs per Agent ID per season.
+- [ ] Maximum Genesis supply is enforced.
+- [ ] Revenue allocation totals exactly 100%.
+- [ ] Minting can be paused without blocking NFT transfers.
+- [ ] All relevant transactions emit events.
+
+### Frontend
+
+- [ ] Website works on desktop and mobile.
+- [ ] Wallet connection works.
+- [ ] Agent ID status is displayed.
+- [ ] Mint allowance is displayed.
+- [ ] Correct mint price is displayed.
+- [ ] Transactions are submitted to the correct network.
+- [ ] NFT gallery reads real blockchain data.
+- [ ] Failed transactions show clear error messages.
+
+### Agentic Wallet
+
+- [ ] Official supported interface is identified.
+- [ ] Wallet status can be read.
+- [ ] Agent ID can be checked.
+- [ ] Mint price can be calculated.
+- [ ] Contract calls can be previewed where supported.
+- [ ] User approval is required for paid transactions.
+- [ ] Transaction receipt is verified.
+- [ ] No private key is exposed to the website.
+
+### Production Readiness
+
+- [ ] Independent contract review.
+- [ ] Deployment documentation.
+- [ ] Multisig administration.
+- [ ] Mainnet configuration verified.
+- [ ] Legal review completed.
+- [ ] Explicit owner approval for launch.
+
+---
+
+# 14. INSTRUCTIONS FOR THE AI DEVELOPMENT AGENT
+
+You are the technical development agent responsible for helping build AGENT RUSH.
+
+The project owner has no professional programming experience.
+
+Your responsibility is not only to generate code, but to guide the owner through the entire development process.
+
+## Communication rules
+
+- Explain every important technical step in simple Turkish.
+- Use English for source code, filenames, variables, and website interface text.
+- Do not assume the owner knows terminal commands.
+- Explain whether a command must be executed in PowerShell or the VS Code terminal.
+- Always specify the exact working directory.
+- Provide complete files instead of isolated code fragments whenever possible.
+- Never tell the owner to manually fill in unexplained placeholders.
+- Explain where configuration values come from.
+- Explain how to verify that each step worked.
+- If an error occurs, diagnose it before proceeding.
+- Do not move to the next phase until the current phase works.
+- Keep the implementation as simple as possible.
+- Prefer free and open-source tools.
+- Do not introduce paid services unless necessary and explicitly explained.
+
+## Coding rules
+
+- Use modular, maintainable code.
+- Use TypeScript for the frontend.
+- Use Solidity for smart contracts.
+- Use OpenZeppelin for standard token functionality.
+- Include automated tests.
+- Explain security-sensitive code.
+- Keep development and production configurations separate.
+- Use real blockchain data for production functionality.
+- Never replace missing integrations with fake implementations without clearly labeling them as mocks.
+
+## Critical Agent ID rule
+
+Before implementing real Agent ID verification:
+
+1. Locate official Binance Agent ID documentation.
+2. Identify the correct BNB Chain registry contract.
+3. Verify the official contract address.
+4. Inspect verified contract source code or ABI.
+5. Confirm the correct ownership and identifier methods.
+6. Test the methods against real read-only blockchain calls.
+7. Confirm how transferred, renamed, revoked, or expired identities behave.
+8. Only then implement mainnet verification.
+
+Do not use an unverified registry ABI.
+
+## Critical Agentic Wallet rule
+
+Use official Binance Agentic Wallet documentation.
+
+Inspect the installed CLI and available integration methods.
+
+Confirm the actual commands and supported contract-call interface.
+
+Do not invent methods such as `window.binanceAgentWallet` unless official documentation confirms they exist.
+
+A browser wallet integration and a Binance Agentic Wallet CLI integration must be treated as separate systems until compatibility is proven.
+
+## Working method
+
+Work in small milestones.
+
+For every milestone, provide:
+
+1. What we are building.
+2. Why it is necessary.
+3. Which files will be created or changed.
+4. Complete code.
+5. Exact Windows commands.
+6. Expected terminal output.
+7. How to test it.
+8. What to do if an error appears.
+
+Do not generate the entire project in one uncontrolled code dump.
+
+Build, test, and verify each component before moving forward.
+
+---
+
+# 15. FIRST TASK FOR THE AI AGENT
+
+Start by inspecting the project owner's existing Windows development environment.
+
+The owner already uses Windows and VS Code and has previously worked with Node.js and Binance Agentic Wallet.
+
+Do not reinstall existing software without checking its version first.
+
+Start with:
+
+```powershell
+node --version
+npm --version
+git --version
+code --version
+baw --version
+```
+
+Then inspect Binance Agentic Wallet:
+
+```powershell
+baw wallet status --json
+```
+
+And:
+
+```powershell
+baw wallet agent-id --json
+```
+
+Never ask the owner to share private keys, seed phrases, passwords, or authentication tokens.
+
+After inspecting the environment:
+
+1. Report which tools are installed.
+2. Identify missing dependencies.
+3. Prepare the AGENT-RUSH project folder.
+4. Initialize the smart contract project.
+5. Install the required dependencies.
+6. Build the first testable NFT contract.
+7. Write automated tests.
+8. Continue one verified milestone at a time.
+
+**The first goal is not to launch a business. The first goal is to create a secure, working AGENT RUSH NFT minting prototype on BNB Chain Testnet.**
+
+---
+
+# FINAL PRODUCT VISION
+
+AGENT RUSH should become a recognizable NFT and gaming ecosystem for Binance Agent ID owners.
+
+Users should be able to bring their AI agents into the platform, mint meme characters, collect NFTs, participate in missions, compete in seasons, and interact with smart contracts through authorized AI-driven transactions.
+
+The platform should be transparent, secure, easy to use, and designed to expand gradually.
+
+**AGENT RUSH — Your Agent. Your Meme. Your Rush.**
