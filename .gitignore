@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build / artifacts
+artifacts/
+cache/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Package lock (commit package.json only)
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Hardhat debug
+*.dbg.json
